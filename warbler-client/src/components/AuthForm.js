@@ -16,7 +16,11 @@ class AuthForm extends Component {
     const authType = this.props.signUp ? "signup" : "signin";
     this.props.onAuth(authType, this.state).then(() => {
       console.log("Logged in successfully");
-    });
+    }).then(() => {
+      return this.props.history.push("/"); //push(path, [state]) - (function) Pushes a new entry onto the history stack
+    }).catch(() => {
+      return;
+    })
   };
 
   handleChange = e => {
@@ -27,12 +31,27 @@ class AuthForm extends Component {
 
   render() {
     const { email, username, password, profileImageUrl } = this.state;
-    const { heading, buttonText, signUp } = this.props;
+    const {
+      heading,
+      buttonText,
+      signUp,
+      errors,
+      history,
+      removeError
+    } = this.props;
+
+    history.listen(() => {
+      removeError();
+    }); //this is going to listen for any change in the route. when there's change, it's going to call removeError function.
+
     return (
       <div className="row justify-content-md-center text-center">
         <div className="col-md-6">
           <form onSubmit={this.handleSubmit}>
             <h2>{heading}</h2>
+            {errors.message && (
+              <div className="alert alert-danger">{errors.message}</div>
+            )}
             <label htmlFor="email">Email:</label>
             <input
               className="form-control"
