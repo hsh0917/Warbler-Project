@@ -16,5 +16,4 @@ router
   .get(getMessage)
   .delete(deleteMessage);
 
-
 module.exports = router;
