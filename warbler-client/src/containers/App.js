@@ -3,20 +3,33 @@ import { Provider } from "react-redux";
 import { configureStore } from "../store";
 import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./Navbar";
-import Main from './Main';
+import Main from "./Main";
+import { setAuthorizationToken, setCurrentUser } from "../store/actions/auth";
+import jwtDecode from "jwt-decode";
 
 const store = configureStore();
+
+if (localStorage.jwtToken) {
+  setAuthorizationToken(localStorage.jwtToken);
+  // prevent someone from manually tampering with the key of jwtToken in localStorage
+  try {
+    store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
+  } catch (e) {
+    store.dispatch(setCurrentUser({}));
+  }
+} // if the server were to go down or if redux store were to be cleared, when the page refreshes, we could still se if there's a token
+// in local storage so that we can repopulate or rehydrate our state with the current user.
+
 
 const App = () => (
   <Provider store={store}>
     <Router>
       <div className="onboarding">
-        <Navbar/>
+        <Navbar />
         <Main />
       </div>
     </Router>
   </Provider>
-
-)
+);
 
 export default App;
