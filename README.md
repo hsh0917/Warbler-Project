@@ -2,6 +2,8 @@
 
 Warbler is a messaging app that allows users to login and create messages for other users.
 
+Link: https://warbler-client-shl.herokuapp.com/
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -96,4 +98,4 @@ Example for GET all message with an user id
 http GET localshot:8081/api/users/:userid/messages
 ```
 
-Link: https://warbler-client-shl.herokuapp.com/
+
