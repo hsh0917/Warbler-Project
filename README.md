@@ -94,4 +94,6 @@ http GET localhost:8081/api/messages/<username> email=<user email> password=<pas
 Example for GET all message with an user id
 ```
 http GET localshot:8081/api/users/:userid/messages
-``
+```
+
+Link: https://warbler-client-shl.herokuapp.com/
